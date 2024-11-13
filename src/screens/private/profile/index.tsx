@@ -1,11 +1,12 @@
 import * as React from 'react';
-import {ReactNode} from 'react';
-import {Button, StyleSheet, View} from 'react-native';
-import {BottomTabStackScreenProps} from '../../../routes';
-import {Dollar} from '../../../assets/svg/Dollar';
+import { ReactNode } from 'react';
+import { Button, StyleSheet, View } from 'react-native';
+
+import { Dollar } from '../../../assets/svg/Dollar';
+import { BottomTabStackScreenProps } from '../../../routes';
 
 const Profile = (props: BottomTabStackScreenProps<'Profile'>): ReactNode => {
-  const {navigation} = props;
+  const { navigation } = props;
 
   return (
     <View style={styles.content}>
@@ -22,8 +23,8 @@ const Profile = (props: BottomTabStackScreenProps<'Profile'>): ReactNode => {
 
 const styles = StyleSheet.create({
   content: {
-    flex: 1,
     alignItems: 'center',
+    flex: 1,
     justifyContent: 'center',
     padding: 16,
   },

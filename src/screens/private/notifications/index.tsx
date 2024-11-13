@@ -1,12 +1,13 @@
 import * as React from 'react';
-import {ReactNode} from 'react';
-import {Button, StyleSheet, View} from 'react-native';
-import {BottomTabStackScreenProps} from '../../../routes';
+import { ReactNode } from 'react';
+import { Button, StyleSheet, View } from 'react-native';
+
+import { BottomTabStackScreenProps } from '../../../routes';
 
 const Notifications = (
   props: BottomTabStackScreenProps<'Notifications'>,
 ): ReactNode => {
-  const {navigation} = props;
+  const { navigation } = props;
 
   return (
     <View style={styles.content}>
@@ -22,8 +23,8 @@ const Notifications = (
 
 const styles = StyleSheet.create({
   content: {
-    flex: 1,
     alignItems: 'center',
+    flex: 1,
     justifyContent: 'center',
     padding: 16,
   },

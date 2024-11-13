@@ -15,15 +15,13 @@ const SvgComponent = (props: SvgProps) => {
       preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 24 24"
       width={width}
-      {...props}
-    >
+      {...props}>
       <G
         clipPath="url(#a)"
         stroke={stroke}
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth={strokeWidth}
-      >
+        strokeWidth={strokeWidth}>
         <Path d="M6.75 9.75a5.25 5.25 0 1 0 10.5 0 5.25 5.25 0 0 0-10.5 0v0ZM18.913 20.876a9.747 9.747 0 0 0-13.826 0" />
         <Path d="M.75 12a11.25 11.25 0 1 0 22.5 0 11.25 11.25 0 0 0-22.5 0v0Z" />
       </G>

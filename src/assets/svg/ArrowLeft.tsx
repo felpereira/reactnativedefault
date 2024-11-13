@@ -15,8 +15,7 @@ const SvgComponent = (props: SvgProps) => {
       height={height}
       viewBox="0 0 24 24"
       width={width}
-      {...props}
-    >
+      {...props}>
       <Path
         d="M16.25 23.25 5.53 12.53a.75.75 0 0 1 0-1.06L16.25.75"
         stroke={stroke}

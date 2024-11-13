@@ -1,24 +1,4 @@
 import * as React from 'react';
-
-import {
-  CompositeScreenProps,
-  NavigationContainer,
-  NavigatorScreenParams,
-  RouteProp,
-  useNavigation,
-} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import type {StackScreenProps} from '@react-navigation/stack';
-import Login from './screens/auth/login';
-import Home from './screens/private/home';
-import {
-  BottomTabNavigationProp,
-  BottomTabScreenProps,
-  createBottomTabNavigator,
-} from '@react-navigation/bottom-tabs';
-import Notifications from './screens/private/notifications';
-import Profile from './screens/private/profile';
-
 import {
   StyleProp,
   StyleSheet,
@@ -27,16 +7,35 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import {House} from './assets/svg/House';
-import {Search} from './assets/svg/Search';
-import {Bell} from './assets/svg/Bell';
-import {Logo} from './assets/svg/Logo';
-import {UserCircle} from './assets/svg/UserCircle';
+import type { StackScreenProps } from '@react-navigation/stack';
+
+import {
+  BottomTabNavigationProp,
+  BottomTabScreenProps,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
 import {
   HeaderBackButtonProps,
   HeaderTitleProps,
 } from '@react-navigation/elements';
-import {ArrowLeft} from './assets/svg/ArrowLeft';
+import {
+  CompositeScreenProps,
+  LinkingOptions,
+  NavigationContainer,
+  NavigatorScreenParams,
+} from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import { ArrowLeft } from './assets/svg/ArrowLeft';
+import { Bell } from './assets/svg/Bell';
+import { House } from './assets/svg/House';
+import { Logo } from './assets/svg/Logo';
+import { Search } from './assets/svg/Search';
+import { UserCircle } from './assets/svg/UserCircle';
+import Login from './screens/auth/login';
+import Home from './screens/private/home';
+import Notifications from './screens/private/notifications';
+import Profile from './screens/private/profile';
 
 const colorNeutral600 = '#545B66';
 const neutralDark = '#                             ';
@@ -47,8 +46,8 @@ const white = '#FFFFFF';
 //#region "Rotas Principais"
 
 type RootStackParamList = {
-  Login: undefined;
   Home: undefined;
+  Login: undefined;
   TabBarItens: NavigatorScreenParams<BottomTabStackParamList>;
 };
 
@@ -65,9 +64,9 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootStack() {
   const headerLeftSecondary = React.useCallback(
     (
-      props: HeaderBackButtonProps & {
+      props: {
         canGoBack?: boolean;
-      },
+      } & HeaderBackButtonProps,
     ) => {
       console.log(props);
       return (
@@ -85,7 +84,10 @@ function RootStack() {
   const headerTitleSecondary = React.useCallback((props: HeaderTitleProps) => {
     return (
       <Text
-        style={[{color: props.tintColor}, props.style as StyleProp<TextStyle>]}>
+        style={[
+          { color: props.tintColor },
+          props.style as StyleProp<TextStyle>,
+        ]}>
         {props.children}
       </Text>
     );
@@ -94,11 +96,11 @@ function RootStack() {
   const headerSecondary = React.useMemo(
     () => ({
       headerLeft: headerLeftSecondary,
-      title: 'Notificações',
-      headerTitle: headerTitleSecondary,
-      headerTintColor: neutralDark,
-      headerTitleStyle: {fontFamily: 'Montserrat-SemiBold', fontSize: 16},
       headerRight: undefined,
+      headerTintColor: neutralDark,
+      headerTitle: headerTitleSecondary,
+      headerTitleStyle: { fontFamily: 'Montserrat-SemiBold', fontSize: 16 },
+      title: 'Notificações',
     }),
     [headerLeftSecondary, headerTitleSecondary],
   );
@@ -106,24 +108,24 @@ function RootStack() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: {backgroundColor: 'red'},
+        headerStyle: { backgroundColor: 'red' },
       }}>
       <Stack.Screen
-        name="TabBarItens"
         component={BottomTabNavigatorStack}
-        options={{headerShown: false}}
+        name="TabBarItens"
+        options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Login"
         component={Login}
+        name="Login"
         options={{
           ...headerSecondary,
         }}
       />
       <Stack.Screen
-        name="Home"
         component={Home}
-        options={{headerStyle: {backgroundColor: 'blue'}}}
+        name="Home"
+        options={{ headerStyle: { backgroundColor: 'blue' } }}
       />
     </Stack.Navigator>
   );
@@ -150,12 +152,12 @@ const BottomTabNavigator = createBottomTabNavigator<BottomTabStackParamList>();
 function BottomTabNavigatorStack() {
   const tabBar2Icon = React.useCallback(
     (props: {
-      focused: boolean;
       color: string;
+      focused: boolean;
       size: number;
     }): React.ReactNode => {
       return (
-        <Search height={props.size} width={props.size} stroke={props.color} />
+        <Search height={props.size} stroke={props.color} width={props.size} />
       );
     },
     [],
@@ -163,12 +165,12 @@ function BottomTabNavigatorStack() {
 
   const tabBar1Icon = React.useCallback(
     (props: {
-      focused: boolean;
       color: string;
+      focused: boolean;
       size: number;
     }): React.ReactNode => {
       return (
-        <House height={props.size} width={props.size} stroke={props.color} />
+        <House height={props.size} stroke={props.color} width={props.size} />
       );
     },
     [],
@@ -176,12 +178,12 @@ function BottomTabNavigatorStack() {
 
   const tabBar3Icon = React.useCallback(
     (props: {
-      focused: boolean;
       color: string;
+      focused: boolean;
       size: number;
     }): React.ReactNode => {
       return (
-        <Bell height={props.size} width={props.size} stroke={props.color} />
+        <Bell height={props.size} stroke={props.color} width={props.size} />
       );
     },
     [],
@@ -189,10 +191,10 @@ function BottomTabNavigatorStack() {
 
   const tabBarLabelStyle = React.useCallback(
     (props: {
-      focused: boolean;
-      color: string;
-      position: 'beside-icon' | 'below-icon';
       children: string;
+      color: string;
+      focused: boolean;
+      position: 'below-icon' | 'beside-icon';
     }) => {
       return (
         <Text style={styles(props).tabBarLabelStyle}>{props.children}</Text>
@@ -203,21 +205,21 @@ function BottomTabNavigatorStack() {
 
   const tabBarStyleDefault = React.useMemo(() => {
     return {
-      tabBarInactiveTintColor: colorNeutral600,
       tabBarActiveBackgroundColor: white,
-      tabBarInactiveBackgroundColor: white,
       tabBarActiveTintColor: colorInterface500,
+      tabBarInactiveBackgroundColor: white,
+      tabBarInactiveTintColor: colorNeutral600,
+      tabBarItemStyle: stylesDefault.tabBarItemStyle,
       tabBarLabel: tabBarLabelStyle,
       tabBarStyle: stylesDefault.tabBarStyle,
-      tabBarItemStyle: stylesDefault.tabBarItemStyle,
     };
   }, [tabBarLabelStyle]);
 
   const headerLeft = React.useCallback(
     (
-      props: HeaderBackButtonProps & {
+      _props: {
         canGoBack?: boolean;
-      },
+      } & HeaderBackButtonProps,
     ) => {
       return (
         <TouchableOpacity>
@@ -229,11 +231,11 @@ function BottomTabNavigatorStack() {
   );
 
   const headerRight = React.useCallback(
-    (props: {
-      tintColor?: string;
+    (_props: {
+      canGoBack: boolean;
       pressColor?: string;
       pressOpacity?: number;
-      canGoBack: boolean;
+      tintColor?: string;
     }) => {
       return (
         <TouchableOpacity>
@@ -246,11 +248,11 @@ function BottomTabNavigatorStack() {
 
   const headerDefault = React.useMemo(
     () => ({
-      headerStyle: stylesDefault.headerStyle,
-      headerLeftContainerStyle: stylesDefault.headerLeftContainerStyle,
-      headerRightContainerStyle: stylesDefault.headerRightContainerStyle,
       headerLeft: headerLeft,
+      headerLeftContainerStyle: stylesDefault.headerLeftContainerStyle,
       headerRight: headerRight,
+      headerRightContainerStyle: stylesDefault.headerRightContainerStyle,
+      headerStyle: stylesDefault.headerStyle,
       headerTitle: '',
     }),
     [headerLeft, headerRight],
@@ -258,9 +260,9 @@ function BottomTabNavigatorStack() {
 
   const headerLeftSecondary = React.useCallback(
     (
-      props: HeaderBackButtonProps & {
+      props: {
         canGoBack?: boolean;
-      },
+      } & HeaderBackButtonProps,
       navigation: NotificationsScreenNavigationProp,
     ) => {
       return (
@@ -280,7 +282,10 @@ function BottomTabNavigatorStack() {
   const headerTitleSecondary = React.useCallback((props: HeaderTitleProps) => {
     return (
       <Text
-        style={[{color: props.tintColor}, props.style as StyleProp<TextStyle>]}>
+        style={[
+          { color: props.tintColor },
+          props.style as StyleProp<TextStyle>,
+        ]}>
         {props.children}
       </Text>
     );
@@ -292,11 +297,11 @@ function BottomTabNavigatorStack() {
 
       return {
         headerLeft: props => headerLeftSecondary(props, navigation),
-        title: 'Notificações',
-        headerTitle: headerTitleSecondary,
-        headerTintColor: neutralDark,
-        headerTitleStyle: {fontFamily: 'Montserrat-SemiBold', fontSize: 16},
         headerRight: undefined,
+        headerTintColor: neutralDark,
+        headerTitle: headerTitleSecondary,
+        headerTitleStyle: { fontFamily: 'Montserrat-SemiBold', fontSize: 16 },
+        title: 'Notificações',
       };
     },
     [headerLeftSecondary, headerTitleSecondary],
@@ -310,19 +315,19 @@ function BottomTabNavigatorStack() {
         ...tabBarStyleDefault,
       }}>
       <BottomTabNavigator.Screen
-        name="Home"
         component={Home}
-        options={{tabBarIcon: tabBar1Icon}}
+        name="Home"
+        options={{ tabBarIcon: tabBar1Icon }}
       />
       <BottomTabNavigator.Screen
-        name="Profile"
         component={Profile}
-        options={{tabBarIcon: tabBar2Icon}}
+        name="Profile"
+        options={{ tabBarIcon: tabBar2Icon }}
       />
       <BottomTabNavigator.Screen
-        name="Notifications"
         component={Notifications}
-        options={({navigation}) => ({
+        name="Notifications"
+        options={({ navigation }) => ({
           ...headerSecondary(navigation),
           tabBarIcon: tabBar3Icon,
         })}
@@ -333,42 +338,52 @@ function BottomTabNavigatorStack() {
 
 //#endregion "Bottom Navigation"
 
+const linkingOption: LinkingOptions<RootStackParamList> = {
+  config: {
+    screens: {
+      Home: `home`,
+      Login: { parse: { userId: (id: string) => Number(id) }, path: `login` },
+    },
+  },
+  prefixes: ['myapp://', 'https://myapp.com'],
+};
+
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linkingOption}>
       <RootStack />
     </NavigationContainer>
   );
 }
 
 const styles = (props: {
-  focused: boolean;
-  color: string;
-  position: 'beside-icon' | 'below-icon';
   children: string;
+  color: string;
+  focused: boolean;
+  position: 'below-icon' | 'beside-icon';
 }) =>
   StyleSheet.create({
     tabBarLabelStyle: {
-      fontSize: 12,
       color: props.color,
       fontFamily: props.focused ? 'Montserrat-SemiBold' : 'Montserrat-Medium',
+      fontSize: 12,
     },
   });
 
 const stylesDefault = StyleSheet.create({
-  tabBarStyle: {
-    height: 64,
-  },
-  tabBarItemStyle: {
-    flex: 1,
-    alignSelf: 'center',
-    flexDirection: 'row',
-  },
-  headerStyle: {backgroundColor: white, minHeight: 64},
   headerLeftContainerStyle: {
     marginStart: 16,
   },
   headerRightContainerStyle: {
     marginEnd: 16,
+  },
+  headerStyle: { backgroundColor: white, minHeight: 64 },
+  tabBarItemStyle: {
+    alignSelf: 'center',
+    flex: 1,
+    flexDirection: 'row',
+  },
+  tabBarStyle: {
+    height: 64,
   },
 });
